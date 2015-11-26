@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0"/><title>Guide to Django - Graphene</title><link rel="shortcut icon" href="/favicon.png"/><link href="https://fonts.googleapis.com/css?family=Raleway:400,600,200,100" rel="stylesheet" type="text/css"/><link href="/app.css" rel="stylesheet" type="text/css"/></head><body><div id="react-mount"><div data-reactid=".graphene" data-react-checksum="1809520422"><header class="header" data-reactid=".graphene.0"><div class="header-wrapper" data-reactid=".graphene.0.0"><a class="header-logo" href="/" data-reactid=".graphene.0.0.0"><span data-reactid=".graphene.0.0.0.0"><svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="logo"><g fill="none" fill-rule="evenodd"><path class="logo-path" d="M49.17 10.915L15.415 30.29l.058 39.252 34.633 20.082 33.345-18.95-.023-39.79-34.185 19.238" stroke="white" stroke-width="4.987"/>
+    <g transform="translate(41.5 3)"><ellipse cx="7.934" cy="7.97" rx="7.934" ry="7.97" fill="white"/></g>
+    <g transform="translate(8 22.482)"><ellipse cx="7.934" cy="7.97" rx="7.934" ry="7.97" fill="white"/></g>
+    <g transform="translate(8 62.33)"><ellipse cx="7.934" cy="7.97" rx="7.934" ry="7.97" fill="white"/></g>
+    <g transform="translate(42.382 81.813)"><ellipse cx="7.934" cy="7.97" rx="7.934" ry="7.97" fill="white"/></g>
+    <g transform="translate(75.882 62.33)"><ellipse cx="7.934" cy="7.97" rx="7.934" ry="7.97" fill="white"/></g>
+    <g transform="translate(75.882 22.482)"><ellipse cx="7.934" cy="7.97" rx="7.934" ry="7.97" fill="white"/></g>
+    <g transform="translate(42.382 41.964)"><ellipse cx="7.934" cy="7.97" rx="7.934" ry="7.97" fill="white"/></g>
+    </g>
+</svg>
+</span><span data-reactid=".graphene.0.0.0.1">Graphene</span></a><nav class="header-nav" data-reactid=".graphene.0.0.1"><a class="" href="/try/" data-reactid=".graphene.0.0.1.0">Try it out</a><a class="active" href="/docs/quickstart/" data-reactid=".graphene.0.0.1.1">Docs</a><a class="" href="/community/" data-reactid=".graphene.0.0.1.2">Community</a><a href="https://github.com/graphql-python/graphene/" data-reactid=".graphene.0.0.1.3">Github</a></nav></div></header><div class="docs" data-reactid=".graphene.1"><aside class="docs-aside" data-reactid=".graphene.1.0"><div class="docs-aside-group" data-reactid=".graphene.1.0.0:$quickstart"><h3 data-reactid=".graphene.1.0.0:$quickstart.0">Quickstart</h3><a class="" href="/docs/quickstart/" data-reactid=".graphene.1.0.0:$quickstart.1:$/docs/quickstart/">Getting started</a><a class=" active" href="/docs/quickstart-django/" data-reactid=".graphene.1.0.0:$quickstart.1:$/docs/quickstart-django/">Guide to Django</a></div><div class="docs-aside-group" data-reactid=".graphene.1.0.0:$walkthrough"><h3 data-reactid=".graphene.1.0.0:$walkthrough.0">Walkthrough</h3><a class="" href="/docs/interfaces/" data-reactid=".graphene.1.0.0:$walkthrough.1:$/docs/interfaces/">Interfaces</a><a class="" href="/docs/objecttypes/" data-reactid=".graphene.1.0.0:$walkthrough.1:$/docs/objecttypes/">ObjectTypes</a><a class="" href="/docs/mutations/" data-reactid=".graphene.1.0.0:$walkthrough.1:$/docs/mutations/">Mutations</a><a class="" href="/docs/basic-types/" data-reactid=".graphene.1.0.0:$walkthrough.1:$/docs/basic-types/">Basic Types</a></div><select class="docs-aside-navselect" data-reactid=".graphene.1.0.1"><optgroup label="Quickstart" data-reactid=".graphene.1.0.1.$quickstart"><option value="/docs/quickstart/" data-reactid=".graphene.1.0.1.$quickstart.$/docs/quickstart/">Getting started</option><option value="/docs/quickstart-django/" data-reactid=".graphene.1.0.1.$quickstart.$/docs/quickstart-django/">Guide to Django</option></optgroup><optgroup label="Walkthrough" data-reactid=".graphene.1.0.1.$walkthrough"><option value="/docs/interfaces/" data-reactid=".graphene.1.0.1.$walkthrough.$/docs/interfaces/">Interfaces</option><option value="/docs/objecttypes/" data-reactid=".graphene.1.0.1.$walkthrough.$/docs/objecttypes/">ObjectTypes</option><option value="/docs/mutations/" data-reactid=".graphene.1.0.1.$walkthrough.$/docs/mutations/">Mutations</option><option value="/docs/basic-types/" data-reactid=".graphene.1.0.1.$walkthrough.$/docs/basic-types/">Basic Types</option></optgroup></select></aside><div class="docs-content" data-reactid=".graphene.1.1"><div class="markdown" data-reactid=".graphene.1.1.0"><div data-reactid=".graphene.1.1.0.1"><p>In our previous quickstart page we created a very simple schema.
+Now we will adapt the schema to map automatically some Django models.</p>
+<h2>Project setup</h2>
+<pre><code class="language-bash"><span class="hljs-comment"># Create the project directory</span>
+mkdir tutorial
+<span class="hljs-built_in">cd</span> tutorial
+
+<span class="hljs-comment"># Create a virtualenv to isolate our package dependencies locally</span>
+virtualenv env
+<span class="hljs-built_in">source</span> env/bin/activate  <span class="hljs-comment"># On Windows use `env\Scripts\activate`</span>
+
+<span class="hljs-comment"># Install Django and Graphene with Django support</span>
+pip install django
+pip install graphene[django]
+pip install django-graphiql
+
+<span class="hljs-comment"># Set up a new project with a single application</span>
+django-admin.py startproject tutorial .  <span class="hljs-comment"># Note the trailing '.' character</span>
+<span class="hljs-built_in">cd</span> tutorial
+django-admin.py startapp quickstart
+</code></pre>
+<p>Now sync your database for the first time:</p>
+<pre><code class="language-bash">python manage.py migrate
+</code></pre>
+<p>We’ll also create an initial user named <code>admin</code> with a password of <code>password</code>.</p>
+<pre><code class="language-bash">python manage.py createsuperuser
+</code></pre>
+<p>Once you’ve set up a database and initial user created and ready to go, open up the app’s directory and we’ll get coding…</p>
+<h2>Schema</h2>
+<p>Right, we’d better write some types then. Open <code>tutorial/quickstart/schema.py</code> and get typing.</p>
+<pre><code class="language-python"><span class="hljs-keyword">import</span> graphene
+<span class="hljs-keyword">from</span> graphene.contrib.django <span class="hljs-keyword">import</span> DjangoObjectType
+
+<span class="hljs-keyword">from</span> django.contrib.auth.models <span class="hljs-keyword">import</span> User, Group
+
+<span class="hljs-comment"># Graphene will map automaticall the User model to UserType with</span>
+<span class="hljs-comment"># the specified fields</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserType</span><span class="hljs-params">(DjangoObjectType)</span>:</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Meta</span>:</span>
+        model = User
+        only_fields = (<span class="hljs-string">'username'</span>, <span class="hljs-string">'email'</span>, <span class="hljs-string">'groups'</span>)
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GroupType</span><span class="hljs-params">(DjangoObjectType)</span>:</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Meta</span>:</span>
+        model = User
+        only_fields = (<span class="hljs-string">'name'</span>, )
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Query</span><span class="hljs-params">(graphene.ObjectType)</span>:</span>
+    all_users = graphene.List(UserType)
+    get_user = graphene.Field(UserType
+                              id=graphene.String(required=<span class="hljs-keyword">True</span>))
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">resolve_all_users</span><span class="hljs-params">(self, args, info)</span>:</span>
+        <span class="hljs-keyword">return</span> User.objects.all()
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">resolve_get_user</span><span class="hljs-params">(self, args, info)</span>:</span>
+        <span class="hljs-keyword">return</span> User.objects.get(id=args.get(<span class="hljs-string">'id'</span>))
+
+schema = graphene.Schema(query=Query)
+</code></pre>
+<h2>Creating GraphQL and GraphiQL views</h2>
+<p>Okay, now let’s wire up the GraphQL and GraphiQL urls. On to <code>tutorial/urls.py</code>…</p>
+<pre><code class="language-python"><span class="hljs-keyword">from</span> django.conf.urls <span class="hljs-keyword">import</span> url, include
+<span class="hljs-keyword">from</span> django.views.decorators.csrf <span class="hljs-keyword">import</span> csrf_exempt
+<span class="hljs-keyword">from</span> graphene.contrib.django.views <span class="hljs-keyword">import</span> GraphQLView
+<span class="hljs-keyword">from</span> tutorial.quickstart.schema <span class="hljs-keyword">import</span> schema
+
+
+<span class="hljs-comment"># Wire up our GraphQL schema in /graphql.</span>
+<span class="hljs-comment"># Additionally, we include GraphiQL view for querying easily our schema.</span>
+urlpatterns = [
+    url(<span class="hljs-string">r'^graphql'</span>, csrf_exempt(GraphQLView.as_view(schema=schema))),
+    url(<span class="hljs-string">r'^graphiql'</span>, include(<span class="hljs-string">'django_graphiql.urls'</span>)),
+]
+</code></pre>
+<h2>Testing our GraphQL schema</h2>
+<p>We’re now ready to test the API we’ve built. Let’s fire up the server from the command line.</p>
+<pre><code class="language-bash">python ./manage.py runserver
+</code></pre>
+<p>Go to <a href="http://localhost:8080/graphiql">localhost:8080/graphiql</a> and type your first query!</p>
+<pre><code class="language-graphql">myQuery {
+    getUser(id:<span class="hljs-string">"1"</span>) {
+        username
+    }
+}
+</code></pre>
+</div><a href="https://github.com/graphql-python/graphene/edit/master/docs/pages/docs/quickstart-django.md" class="improve-document-link" data-reactid=".graphene.1.1.0.2">Edit page</a></div></div></div></div></div><script src="/bundle.js"></script></body></html>
