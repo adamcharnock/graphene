@@ -2,7 +2,6 @@ class BaseQuerySetConnectionResolver(object):
 
     def __init__(self, node, on=None):
         self.node = node
-        self.model = node._meta.model
         # The name of the field on the model which contains the
         # manager upon which to perform the query. Optional.
         # If omitted the model's default manager will be used.
@@ -13,6 +12,13 @@ class BaseQuerySetConnectionResolver(object):
         self.args = args
         self.info = info
         return self.make_query()
+
+    @property
+    def model(self):
+        try:
+            return self.node._meta.model
+        except AttributeError:
+            return None
 
     def get_manager(self):
         if self.on:

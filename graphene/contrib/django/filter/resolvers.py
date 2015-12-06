@@ -10,11 +10,19 @@ class FilterConnectionResolver(BaseQuerySetConnectionResolver):
     def __init__(self, node, on=None, filterset_class=None,
                  fields=None, order_by=None, extra_filter_meta=None):
         self.filterset_class = filterset_class
-        self.fields = fields or node._meta.filter_fields
-        self.order_by = order_by or node._meta.filter_order_by
+        self._fields = fields
+        self._order_by = order_by
         self.extra_filter_meta = extra_filter_meta or {}
         self._filterset_class = None
         super(FilterConnectionResolver, self).__init__(node, on)
+
+    @property
+    def fields(self):
+        return self._fields or self.node._meta.filter_fields
+
+    @property
+    def order_by(self):
+        return self._order_by or self.node._meta.filter_order_by
 
     def make_query(self):
         filterset_class = self.get_filterset_class()

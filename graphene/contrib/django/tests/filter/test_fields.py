@@ -141,8 +141,8 @@ def test_filter_filterset_information_on_meta_related():
             filter_order_by = True
 
     class Query(ObjectType):
-        all_reporters = DjangoFilterConnectionField(ReporterFilterNode)
-        all_articles = DjangoFilterConnectionField(ArticleFilterNode)
+        all_reporters = DjangoFilterConnectionField('ReporterFilterNode')
+        all_articles = DjangoFilterConnectionField('ArticleFilterNode')
         reporter = NodeField(ReporterFilterNode)
         article = NodeField(ArticleFilterNode)
 
